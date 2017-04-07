@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+
+  "name": "Bad Things",
+  "description": "Bad Things - Hackathon Project",
+  "version": "1.0",
+  "icons": {
+    "128": "img/icon-128.png",
+    "48": "img/icon-48.png"
+  },
+
+  "background": {
+    "scripts": [
+      "js/zepto-1.2.0.js",
+      "js/app.js"
+    ]
+  },
+
+  "browser_action": {
+    "default_title": "Bad Things",
+    "default_icon": "img/icon-19.png",
+    "default_popup": "settings.html"
+  },
+
+  "permissions": [
+    "tabs",
+    "https://example.com/" // API URL
+  ]
+}
