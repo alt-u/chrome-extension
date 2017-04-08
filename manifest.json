@@ -11,8 +11,7 @@
 
   "background": {
     "scripts": [
-      "js/zepto-1.2.0.js",
-      "js/app.js"
+      "js/background.js"
     ]
   },
 
