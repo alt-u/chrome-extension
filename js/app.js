@@ -120,6 +120,14 @@ $(document).ready(function() {
 
     window.close();
   });
+
+  $('#accessToken').val(settings.all.accessToken);
+  $('#save-config').click(function() {
+    settings.all.accessToken = $('#accessToken').val();
+    settings.save();
+
+    window.close();
+  });
 });
 
 var getLocation = function(href) {
