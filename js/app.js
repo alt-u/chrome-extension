@@ -53,22 +53,28 @@ $(document).ready(function() {
   });
 
   $('#buy-more-time').click(function() {
-    // var time_remaining = (localStorage['time_remaining'] == null) ? 0 : localStorage['time_remaining'];
-    // // console.log("Current time_remaining:", time_remaining);
-    // // TODO: Process payment via server before granting credit!
-    // localStorage['time_remaining'] = time_remaining + 20; // add credit!
+    var time_remaining = (localStorage['time_remaining'] == null) ? 0 : localStorage['time_remaining'];
+
+    // Process payment via server before granting credit!
+    var ajax_url = 'http://73fb0bbf.eu.ngrok.io/api/badthing';
+    var authToken = settings.all.accessToken;
+    var ajax_config = { headers: { 'Authorization': authToken } };
+    var ajax_data = {
+      description: 'Web Browsing Time!',
+      value: 1 // 1.00
+    };
 
     console.log('Buying more time...');
-    setRemainingTime(15);
-    refreshRemainingTimeUi(15);
-    initializeClock();
-    processCurrentTab(function(tabId) {
-      chrome.tabs.update(tabId, { url: 'https://www.google.com/' } );
-      window.close();
+    $.post(ajax_url, ajax_data, ajax_config).done(function() {
+      setRemainingTime(10); // set to 10 seconds
+      initializeClock();
+      processCurrentTab(function(tabId) {
+        chrome.tabs.update(tabId, { url: 'https://www.google.com/' } );
+        window.close();
+      });
+    }).fail(function() {
+      alert( "error" );
     });
+
   });
-
-  // setInterval(function() {
-
-  // }, 1000)
 });
