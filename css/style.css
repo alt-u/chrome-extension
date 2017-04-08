@@ -1,7 +1,7 @@
-body {
+#popup {
   padding-top: 15px;
   padding-bottom: 15px;
-  width: 300px;
+  width: 500px;
 }
 
 #block_this_site {
@@ -11,4 +11,14 @@ body {
 #blocked_sites button:hover {
   color: #a94442;
   background-color: #ebcccc;
+}
+
+#blocked {
+  text-align: center;
+  margin: 200px;
+  font-size: 5em;
+}
+
+#blocked h1 {
+  font-variant: small-caps;
 }
