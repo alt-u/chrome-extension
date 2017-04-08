@@ -1,15 +1,20 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <link rel='stylesheet' type='text/css' href='css/bootstrap.min.css'/>
     <link rel='stylesheet' type='text/css' href='css/style.css'/>
     <script src='js/zepto-1.2.0.js' type='text/javascript'></script>
+    <script src='js/bootstrap.min.js' type='text/javascript'></script>
     <script src='js/app.js' type='text/javascript'></script>
   </head>
   <body>
-    <div id="wrapper">
+    <div class="container-fluid">
       <div id="block_this_site">
-        <button id='block_current_site'>Block Current Site</button>
+        <button class="btn btn-primary btn-block" id='block_current_site'>
+          Block Current Site
+        </button>
       </div>
-      <h3>Blocked Sites:</h3>
+      <h2>Blocked Sites:</h2>
       <div id="blocked_sites"></div>
     </div>
   </body>

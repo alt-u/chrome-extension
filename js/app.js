@@ -81,7 +81,7 @@ function blockSite(tabId) {
 
 // register handlers for removing items
 function registerBlockedUrlsRemoveButtons() {
-  $('#blocked_sites li').each(function(i) {
+  $('#blocked_sites button').each(function(i) {
     $(this).click(function() {
       urlSet.delete($(this).data('url'));
       populateBlockedUrls();
@@ -91,9 +91,9 @@ function registerBlockedUrlsRemoveButtons() {
 
 // displays the list of our blocked sites
 function populateBlockedUrls() {
-  var urlList = $("<ul class='blocked_list'></ul>");
+  var urlList = $("<div class='blocked_list list-group'></div>");
   for (var i = 0; i < urlSet.urls.length; i++) {
-    urlList.append("<li data-url='" + urlSet.urls[i] + "'>" + urlSet.urls[i] + '</li>');
+    urlList.append("<button type='button' class='list-group-item' data-url='" + urlSet.urls[i] + "'>" + urlSet.urls[i] + '</button>');
   }
   $('#blocked_sites').html(urlList);
 

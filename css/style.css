@@ -1,18 +1,9 @@
 body {
-  padding: 3px;
-  width: 200px;
+  padding-top: 15px;
+  width: 300px;
 }
 
-#blocked_sites li {
-  cursor: pointer;
-  list-style-type: none;
-  padding: 2px;
-}
-
-#blocked_sites li:hover {
-  color: red;
-}
-
-button {
-  border-radius: 5px;
+#blocked_sites button:hover {
+  color: #a94442;
+  background-color: #ebcccc;
 }
