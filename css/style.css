@@ -4,6 +4,10 @@ body {
   width: 300px;
 }
 
+#block_this_site {
+  margin-bottom: 15px;
+}
+
 #blocked_sites button:hover {
   color: #a94442;
   background-color: #ebcccc;
