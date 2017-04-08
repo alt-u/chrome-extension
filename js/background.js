@@ -101,17 +101,41 @@ function blockSite(tabId) {
 
 function getTimeRemaining(endtime) {
   var t = Date.parse(endtime) - Date.parse(new Date());
-  var seconds = Math.floor((t / 1000) % 60);
-  var minutes = Math.floor((t / 1000 / 60) % 60);
-  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+
+  return formatTimeRemaining(t / 1000);
+}
+
+function formatTimeRemaining(secs) {
+  var seconds = Math.floor(secs % 60);
+  var minutes = Math.floor((secs / 60) % 60);
+  var hours = Math.floor((secs / (60 * 60)) % 24);
+  var days = Math.floor(secs / (60 * 60 * 24));
   return {
-    'total': t,
+    'total': secs * 1000,
     'days': days,
     'hours': hours,
     'minutes': minutes,
     'seconds': seconds
   };
+}
+
+function setRemainingTime(secs) {
+  localStorage['time_remaining'] = secs;
+  refreshRemainingTimeUi(secs);
+}
+
+function refreshRemainingTimeUi(secs) {
+  console.log('refreshRemainingTimeUi...');
+  chrome.browserAction.setBadgeText({ text: '' + secs });
+
+  var clock = document.getElementById('countdown-clock');
+  if (clock) {
+    var t = formatTimeRemaining(secs);
+    // avoid updating UI if running in background (where no DOM available)!
+    clock.querySelector('.hours').innerHTML = ('0' + t.hours).slice(-2);
+    clock.querySelector('.minutes').innerHTML = ('0' + t.minutes).slice(-2);
+    clock.querySelector('.seconds').innerHTML = ('0' + t.seconds).slice(-2);
+  }
 }
 
 function initializeClock() {
@@ -121,23 +145,11 @@ function initializeClock() {
 
   var endtime = new Date(Date.parse(new Date()) + time_remaining * 1000);
 
-  var clock = document.getElementById('countdown-clock');
 
   function updateClock() {
     var t = getTimeRemaining(endtime);
 
-    console.log("t = ", t);
-
-    localStorage['time_remaining'] = t.total / 1000;
-
-    chrome.browserAction.setBadgeText({ text: '' + t.total / 1000 });
-
-    if (clock) {
-      // avoid updating UI if running in background (where no DOM available)!
-      clock.querySelector('.hours').innerHTML = ('0' + t.hours).slice(-2);
-      clock.querySelector('.minutes').innerHTML = ('0' + t.minutes).slice(-2);
-      clock.querySelector('.seconds').innerHTML = ('0' + t.seconds).slice(-2);
-    }
+    setRemainingTime(t.total / 1000);
 
     if (t.total <= 0) {
       shouldBlockCurrentSite();

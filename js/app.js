@@ -49,7 +49,23 @@ $(document).ready(function() {
 
   $('#fix-everything').click(function() {
     console.log('Fixing everything!');
-    localStorage['time_remaining'] = 10;
+    setRemainingTime(10);
+  });
+
+  $('#buy-more-time').click(function() {
+    // var time_remaining = (localStorage['time_remaining'] == null) ? 0 : localStorage['time_remaining'];
+    // // console.log("Current time_remaining:", time_remaining);
+    // // TODO: Process payment via server before granting credit!
+    // localStorage['time_remaining'] = time_remaining + 20; // add credit!
+
+    console.log('Buying more time...');
+    setRemainingTime(15);
+    refreshRemainingTimeUi(15);
+    initializeClock();
+    processCurrentTab(function(tabId) {
+      chrome.tabs.update(tabId, { url: 'https://www.google.com/' } );
+      window.close();
+    });
   });
 
   // setInterval(function() {
