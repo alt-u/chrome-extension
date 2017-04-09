@@ -58,6 +58,7 @@ $(document).ready(function() {
     // Process payment via server before granting credit!
     var ajax_url = 'http://73fb0bbf.eu.ngrok.io/api/badthing';
     var authToken = settings.all.accessToken;
+    console.log("Auth Token: ", authToken);
     var ajax_config = { headers: { 'Authorization': authToken } };
     var ajax_data = {
       description: 'Web Browsing Time!',
