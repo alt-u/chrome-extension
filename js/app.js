@@ -65,10 +65,12 @@ $(document).ready(function() {
       value: 1 // 1.00
     });
     var ajax_success = function() {
+      console.log('Server Success!');
       setRemainingTime(10); // set to 10 seconds
       initializeClock();
       processCurrentTab(function(tabId) {
-        chrome.tabs.update(tabId, { url: 'https://www.google.com/' } );
+        chrome.tabs.update(tabId, { url: 'http://www.bbc.co.uk/news' } );
+        // history.go(-1);
         window.close();
       });
     };
@@ -80,9 +82,11 @@ $(document).ready(function() {
       data: ajax_data,
       headers: ajax_headers,
       dataType: 'json', // for expected response
-      contentType: "application/json", // for request
-      success: ajax_success
+      contentType: "application/json" // for request
     });
+
+    // For demo purposes, assume success!
+    setTimeout(ajax_success, 1000);
 
     // $.post(ajax_url, ajax_data, ajax_config).done(function() {
     //   setRemainingTime(10); // set to 10 seconds
