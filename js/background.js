@@ -120,6 +120,7 @@ function formatTimeRemaining(secs) {
 }
 
 function setRemainingTime(secs) {
+  if (secs < 0) { return }
   localStorage['time_remaining'] = secs;
   refreshRemainingTimeUi(secs);
 }
