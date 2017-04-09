@@ -59,23 +59,41 @@ $(document).ready(function() {
     var ajax_url = 'http://73fb0bbf.eu.ngrok.io/api/badthing';
     var authToken = settings.all.accessToken;
     console.log("Auth Token: ", authToken);
-    var ajax_config = { headers: { 'Authorization': authToken } };
-    var ajax_data = {
+    var ajax_headers = { 'Authorization': authToken };
+    var ajax_data = JSON.stringify({
       description: 'Web Browsing Time!',
       value: 1 // 1.00
-    };
-
-    console.log('Buying more time...');
-    $.post(ajax_url, ajax_data, ajax_config).done(function() {
+    });
+    var ajax_success = function() {
       setRemainingTime(10); // set to 10 seconds
       initializeClock();
       processCurrentTab(function(tabId) {
         chrome.tabs.update(tabId, { url: 'https://www.google.com/' } );
         window.close();
       });
-    }).fail(function() {
-      alert( "error" );
+    };
+
+    console.log('Buying more time...');
+    $.ajax({
+      url: ajax_url,
+      type: 'post',
+      data: ajax_data,
+      headers: ajax_headers,
+      dataType: 'json', // for expected response
+      contentType: "application/json", // for request
+      success: ajax_success
     });
+
+    // $.post(ajax_url, ajax_data, ajax_config).done(function() {
+    //   setRemainingTime(10); // set to 10 seconds
+    //   initializeClock();
+    //   processCurrentTab(function(tabId) {
+    //     chrome.tabs.update(tabId, { url: 'https://www.google.com/' } );
+    //     window.close();
+    //   });
+    // }).fail(function(error) {
+    //   console.log(`Error from server`);
+    // });
 
   });
 });
